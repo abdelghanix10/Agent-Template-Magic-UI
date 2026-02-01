@@ -2,6 +2,8 @@
 
 import { siteConfig } from "@/lib/config";
 import { motion } from "motion/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useRef, useState } from "react";
 
 interface NavItem {
@@ -12,6 +14,7 @@ interface NavItem {
 const navs: NavItem[] = siteConfig.nav.links;
 
 export function NavMenu() {
+  const pathname = usePathname();
   const ref = useRef<HTMLUListElement>(null);
   const [left, setLeft] = useState(0);
   const [width, setWidth] = useState(0);
@@ -19,25 +22,37 @@ export function NavMenu() {
   const [activeSection, setActiveSection] = useState("hero");
   const [isManualScroll, setIsManualScroll] = useState(false);
 
-  React.useEffect(() => {
-    // Initialize with first nav item
-    const firstItem = ref.current?.querySelector(
-      `[href="#${navs[0].href.substring(1)}"]`,
-    )?.parentElement;
-    if (firstItem) {
-      const rect = firstItem.getBoundingClientRect();
-      setLeft(firstItem.offsetLeft);
+  const updatePosition = (selector: string) => {
+    const item = ref.current?.querySelector(selector)?.parentElement;
+    if (item) {
+      const rect = item.getBoundingClientRect();
+      setLeft(item.offsetLeft);
       setWidth(rect.width);
       setIsReady(true);
     }
-  }, []);
+  };
+
+  React.useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection(pathname);
+      updatePosition(`[href="${pathname}"]`);
+    } else {
+      // Logic for home page section highlighting
+      const firstSection = navs[0].href.split("#")[1] || "hero";
+      setActiveSection(firstSection);
+      updatePosition(`[href$="#${firstSection}"]`);
+    }
+  }, [pathname]);
 
   React.useEffect(() => {
     const handleScroll = () => {
+      if (pathname !== "/") return;
       // Skip scroll handling during manual click scrolling
       if (isManualScroll) return;
 
-      const sections = navs.map((item) => item.href.substring(1));
+      const sections = navs
+        .filter((item) => item.href.includes("#"))
+        .map((item) => item.href.split("#")[1]);
 
       // Find the section closest to viewport top
       let closestSection = sections[0];
@@ -56,43 +71,33 @@ export function NavMenu() {
       }
 
       // Update active section and nav indicator
-      setActiveSection(closestSection);
-      const navItem = ref.current?.querySelector(
-        `[href="#${closestSection}"]`,
-      )?.parentElement;
-      if (navItem) {
-        const rect = navItem.getBoundingClientRect();
-        setLeft(navItem.offsetLeft);
-        setWidth(rect.width);
+      if (closestSection) {
+        setActiveSection(closestSection);
+        updatePosition(`[href$="#${closestSection}"]`);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // Initial check
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isManualScroll]);
+  }, [isManualScroll, pathname]);
 
   const handleClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     item: NavItem,
   ) => {
-    e.preventDefault();
-
-    const targetId = item.href.substring(1);
-    const element = document.getElementById(targetId);
+    const isAnchor = item.href.includes("#");
+    const targetId = isAnchor ? item.href.split("#")[1] : null;
+    const element = targetId ? document.getElementById(targetId) : null;
 
     if (element) {
+      e.preventDefault();
       // Set manual scroll flag
       setIsManualScroll(true);
 
       // Immediately update nav state
-      setActiveSection(targetId);
-      const navItem = e.currentTarget.parentElement;
-      if (navItem) {
-        const rect = navItem.getBoundingClientRect();
-        setLeft(navItem.offsetLeft);
-        setWidth(rect.width);
-      }
+      setActiveSection(targetId!);
+      updatePosition(`[href$="#${targetId}"]`);
 
       // Calculate exact scroll position
       const elementPosition = element.getBoundingClientRect().top;
@@ -107,7 +112,7 @@ export function NavMenu() {
       // Reset manual scroll flag after animation completes
       setTimeout(() => {
         setIsManualScroll(false);
-      }, 500); // Adjust timing to match scroll animation duration
+      }, 1000);
     }
   };
 
@@ -121,14 +126,15 @@ export function NavMenu() {
           <li
             key={item.name}
             className={`z-10 cursor-pointer h-full flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors duration-200 ${
-              activeSection === item.href.substring(1)
+              activeSection ===
+              (item.href.includes("#") ? item.href.split("#")[1] : item.href)
                 ? "text-primary"
                 : "text-primary/60 hover:text-primary"
             } tracking-tight`}
           >
-            <a href={item.href} onClick={(e) => handleClick(e, item)}>
+            <Link href={item.href} onClick={(e) => handleClick(e, item)}>
               {item.name}
-            </a>
+            </Link>
           </li>
         ))}
         {isReady && (

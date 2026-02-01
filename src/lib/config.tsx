@@ -50,10 +50,10 @@ export const siteConfig = {
   },
   nav: {
     links: [
-      { id: 1, name: "Home", href: "#hero" },
-      { id: 2, name: "How it Works", href: "#bento" },
-      { id: 3, name: "Features", href: "#features" },
-      { id: 4, name: "Pricing", href: "#pricing" },
+      { id: 1, name: "Home", href: "/#hero" },
+      { id: 2, name: "How it Works", href: "/#bento" },
+      { id: 3, name: "Features", href: "/#features" },
+      { id: 4, name: "Pricing", href: "/#pricing" },
     ],
   },
   hero: {
@@ -78,11 +78,11 @@ export const siteConfig = {
     cta: {
       primary: {
         text: "Try for Free",
-        href: "#",
+        href: "/register",
       },
       secondary: {
         text: "Log in",
-        href: "#",
+        href: "/login",
       },
     },
   },
@@ -707,7 +707,7 @@ export const siteConfig = {
     pricingItems: [
       {
         name: "Free",
-        href: "#",
+        href: "/register",
         price: "$0",
         period: "month",
         yearlyPrice: "$0",
@@ -724,7 +724,7 @@ export const siteConfig = {
       },
       {
         name: "Startup",
-        href: "#",
+        href: "/register",
         price: "$12",
         period: "month",
         yearlyPrice: "$120",
@@ -745,7 +745,7 @@ export const siteConfig = {
       },
       {
         name: "Enterprise",
-        href: "#",
+        href: "/contact",
         price: "$24",
         period: "month",
         yearlyPrice: "$240",
@@ -1014,36 +1014,33 @@ export const siteConfig = {
     backgroundImage: "/agent-cta-background.png",
     button: {
       text: "Start Your 30-Day Free Trial Today",
-      href: "#",
+      href: "/register",
     },
     subtext: "Cancel anytime, no questions asked",
   },
   footerLinks: [
     {
+      title: "Product",
+      links: [
+        { id: 1, title: "Features", url: "/#features" },
+        { id: 2, title: "Pricing", url: "/#pricing" },
+        { id: 3, title: "How it Works", url: "/#bento" },
+      ],
+    },
+    {
       title: "Company",
       links: [
-        { id: 1, title: "About", url: "#" },
-        { id: 2, title: "Contact", url: "#" },
-        { id: 3, title: "Blog", url: "#" },
-        { id: 4, title: "Story", url: "#" },
+        { id: 1, title: "About", url: "/about" },
+        { id: 2, title: "Blog", url: "/blog" },
+        { id: 3, title: "Story", url: "/story" },
       ],
     },
     {
-      title: "Products",
+      title: "Support",
       links: [
-        { id: 5, title: "Company", url: "#" },
-        { id: 6, title: "Product", url: "#" },
-        { id: 7, title: "Press", url: "#" },
-        { id: 8, title: "More", url: "#" },
-      ],
-    },
-    {
-      title: "Resources",
-      links: [
-        { id: 9, title: "Press", url: "#" },
-        { id: 10, title: "Careers", url: "#" },
-        { id: 11, title: "Newsletters", url: "#" },
-        { id: 12, title: "More", url: "#" },
+        { id: 1, title: "Contact", url: "/contact" },
+        { id: 2, title: "FAQ", url: "/#faq" },
+        { id: 3, title: "Privacy Policy", url: "#" },
       ],
     },
   ],

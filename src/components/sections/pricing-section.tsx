@@ -4,6 +4,7 @@ import { SectionHeader } from "@/components/section-header";
 import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
+import Link from "next/link";
 import { useState } from "react";
 
 interface TabsProps {
@@ -145,15 +146,16 @@ export function PricingSection() {
               </div>
 
               <div className="flex flex-col gap-2 p-4">
-                <button
-                  className={`h-10 w-full flex items-center justify-center text-sm font-normal tracking-wide rounded-full px-4 cursor-pointer transition-all ease-out active:scale-95 ${
+                <Link
+                  href={tier.href}
+                  className={`w-full h-10 flex items-center justify-center rounded-md text-sm font-medium transition-all ease-out active:scale-95 ${
                     tier.isPopular
                       ? `${tier.buttonColor} shadow-[inset_0_1px_2px_rgba(255,255,255,0.25),0_3px_3px_-1.5px_rgba(16,24,40,0.06),0_1px_1px_rgba(16,24,40,0.08)]`
                       : `${tier.buttonColor} shadow-[0px_1px_2px_0px_rgba(255,255,255,0.16)_inset,0px_3px_3px_-1.5px_rgba(16,24,40,0.24),0px_1px_1px_-0.5px_rgba(16,24,40,0.20)]`
                   }`}
                 >
                   {tier.buttonText}
-                </button>
+                </Link>
               </div>
               <hr className="border-border dark:border-white/20" />
               <div className="p-4">

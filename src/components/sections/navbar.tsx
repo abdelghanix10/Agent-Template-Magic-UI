@@ -58,9 +58,9 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = siteConfig.nav.links.map((item) =>
-        item.href.substring(1),
-      );
+      const sections = siteConfig.nav.links
+        .filter((item) => item.href.includes("#"))
+        .map((item) => item.href.split("#")[1]);
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -122,7 +122,7 @@ export function Navbar() {
               <div className="flex items-center space-x-6">
                 <Link
                   className="bg-secondary h-8 hidden md:flex items-center justify-center text-sm font-normal tracking-wide rounded-full text-primary-foreground dark:text-secondary-foreground w-fit px-4 shadow-[inset_0_1px_2px_rgba(255,255,255,0.25),0_3px_3px_-1.5px_rgba(16,24,40,0.06),0_1px_1px_rgba(16,24,40,0.08)] border border-white/[0.12]"
-                  href="#"
+                  href={siteConfig.hero.cta.primary.href}
                 >
                   Try for free
                 </Link>
@@ -186,39 +186,47 @@ export function Navbar() {
                   variants={drawerMenuContainerVariants}
                 >
                   <AnimatePresence>
-                    {siteConfig.nav.links.map((item) => (
-                      <motion.li
-                        key={item.id}
-                        className="p-2.5 border-b border-border last:border-b-0"
-                        variants={drawerMenuVariants}
-                      >
-                        <a
-                          href={item.href}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            const element = document.getElementById(
-                              item.href.substring(1),
-                            );
-                            element?.scrollIntoView({ behavior: "smooth" });
-                            setIsDrawerOpen(false);
-                          }}
-                          className={`underline-offset-4 hover:text-primary/80 transition-colors ${
-                            activeSection === item.href.substring(1)
-                              ? "text-primary font-medium"
-                              : "text-primary/60"
-                          }`}
+                    {siteConfig.nav.links.map((item) => {
+                      const isAnchor = item.href.includes("#");
+                      const targetId = isAnchor
+                        ? item.href.split("#")[1]
+                        : null;
+                      return (
+                        <motion.li
+                          key={item.id}
+                          className="p-2.5 border-b border-border last:border-b-0"
+                          variants={drawerMenuVariants}
                         >
-                          {item.name}
-                        </a>
-                      </motion.li>
-                    ))}
+                          <Link
+                            href={item.href}
+                            onClick={(e) => {
+                              const element = targetId
+                                ? document.getElementById(targetId)
+                                : null;
+                              if (element) {
+                                e.preventDefault();
+                                element.scrollIntoView({ behavior: "smooth" });
+                              }
+                              setIsDrawerOpen(false);
+                            }}
+                            className={`underline-offset-4 hover:text-primary/80 transition-colors ${
+                              activeSection === targetId
+                                ? "text-primary font-medium"
+                                : "text-primary/60"
+                            }`}
+                          >
+                            {item.name}
+                          </Link>
+                        </motion.li>
+                      );
+                    })}
                   </AnimatePresence>
                 </motion.ul>
 
                 {/* Action buttons */}
                 <div className="flex flex-col gap-2">
                   <Link
-                    href="#"
+                    href={siteConfig.hero.cta.primary.href}
                     className="bg-secondary h-8 flex items-center justify-center text-sm font-normal tracking-wide rounded-full text-primary-foreground dark:text-secondary-foreground w-full px-4 shadow-[inset_0_1px_2px_rgba(255,255,255,0.25),0_3px_3px_-1.5px_rgba(16,24,40,0.06),0_1px_1px_rgba(16,24,40,0.08)] border border-white/[0.12] hover:bg-secondary/80 transition-all ease-out active:scale-95"
                   >
                     Try for free
