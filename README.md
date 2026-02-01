@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🤖 SkyAgent - AI-Powered Landing Page Template
 
-## Getting Started
+SkyAgent is a high-performance, visually stunning landing page template built primarily for AI agents and SaaS companies. It features a modern, clean design with professional animations, built using the latest web technologies including Next.js 16, Tailwind CSS v4, and Motion.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Multi-page Architecture**: Full support for About, Blog, Story, and Contact pages.
+- **Dynamic Layout Management**: Uses a custom `LayoutShell` to conditionally handle headers and footers based on the route (e.g., hidden on login/register).
+- **Stunning UI Components**:
+  - **Bento Grid**: Interactive, animated grid for showcasing features.
+  - **Interactive Globe**: A beautiful, performant 3D globe component.
+  - **Flickering Grid**: A mesmerizing background effect for hero sections.
+  - **Marquee & Smooth Scroll**: Polished navigation and testimonials.
+- **Authentication Flow**: Pre-built Login and Register pages with a unique "glassmorphism" blue theme.
+- **Theme Support**: Built-in support for light and dark modes via `next-themes`.
+- **Dynamic Branding**: Automated favicon generation from SVG logo using Next.js `icon.tsx`.
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 16 (App Router)](https://nextjs.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Animations**: [Motion (Framer Motion)](https://motion.dev/)
+- **Components**: [Magic UI](https://magicui.design/) & [Radix UI](https://www.radix-ui.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Language**: TypeScript
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm (recommended)
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/abdelghanix10/Agent-Template-Magic-UI.git
+   cd Agent-Template-Magic-UI
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   pnpm install
+   ```
+
+3. **Run the development server:**
+
+   ```bash
+   pnpm dev
+   ```
+
+4. **Build for production:**
+   ```bash
+   pnpm build
+   ```
+
+## 📁 Project Structure
+
+```text
+src/
+├── app/            # Next.js App Router (Routes & Metadata)
+├── components/     # UI Components & Sections
+│   ├── sections/   # Major page sections (Hero, Bento, CTA, etc.)
+│   └── ui/         # Base UI components (Magic UI / Radix)
+├── hooks/          # Custom React hooks
+├── lib/            # Configuration (siteConfig), utils, and site-wide constants
+└── styles/         # Global styles (Tailwind v4 imports)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙️ Configuration
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Most of the site's content and branding can be managed through `src/lib/config.tsx`. Update the `siteConfig` object to change:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Site name and description
+- Navigation links
+- Footer structure
+- Hero section content and CTAs
 
-## Learn More
+## 🎨 Customizing the Design
 
-To learn more about Next.js, take a look at the following resources:
+The project uses **Tailwind CSS v4**. Global styles and theme variables are defined in `src/app/globals.css`. You can customize colors, spacing, and animations directly using the new `@theme` block.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with ❤️ by [Dillion Verma](https://x.com/dillionverma) and the [Magic UI](https://magicui.design/) community.

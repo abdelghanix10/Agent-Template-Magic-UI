@@ -1,9 +1,17 @@
 import { siteConfig } from "@/lib/config";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 export default function RegisterPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-20 px-6 relative overflow-hidden">
+      <Link
+        href="/"
+        className="absolute top-8 left-8 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors z-20 group"
+      >
+        <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
+        Back to Home
+      </Link>
       <div className="absolute inset-0 -z-10 h-full w-full [background:radial-gradient(125%_125%_at_50%_10%,var(--background)_40%,var(--secondary)_100%)]"></div>
 
       <div className="w-full max-w-md space-y-8 border border-white/12 p-10 rounded-3xl bg-white/50 dark:bg-background/50 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
